@@ -1,36 +1,86 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-        <a class="navbar-item" href="https://seotest.dev">
-            SEO Testing Ground
+<nav class="navbar ">
+    <div class="navbar-brand" style="margin-left:20px;">
+        <a class="navbar-item" href="/">
+            <img src="/images/test-tube.webp">
         </a>
 
-        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-            data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </a>
+        
+        <div class="navbar-burger burger" data-target="navMenubd-example">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
 
-    <div id="navbarBasicExample" class="navbar-menu">
+    <div id="navMenubd-example" class="navbar-menu">
         <div class="navbar-start">
-            <a class="navbar-item">
-                About
-            </a>
+            <div class="navbar-item">
+                <a class="navbar-link href="#">
+                    ABOUT
+                </a>
+
+            </div>
 
         </div>
 
         <div class="navbar-end">
+            <a class="navbar-item is-hidden-desktop-only" href="https://twitter.com/jgthms" target="_blank">
+                
+            </a>
             <div class="navbar-item">
-                <div class="buttons">
-                    <a class="button is-primary">
-                        <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-light">
-                        Log in
-                    </a>
+                <div class="field is-grouped">
+                    <p class="control">
+                        <a class="" data-social-network="Twitter" data-social-action="tweet"
+                            data-social-target="http://bulma.io" target="_blank"
+                            href="https://twitter.com/intent/tweet?text=Live SEO Tests at https://seotests.dev&hashtags=seotest&url=http://seotest.dev">
+                            
+                                😍 Share this site on Twitter
+                        </a>
+
+                    </p>
+                    
                 </div>
             </div>
         </div>
     </div>
 </nav>
+<section class="hero">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title has-text-link">
+                <%= pageHeading %>
+            </h1>
+            <h2 class="subtitle">
+                <%= pageSubheading %>
+            </h2>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // Get all "navbar-burger" elements
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any nav burgers
+        if ($navbarBurgers.length > 0) {
+
+            // Add a click event on each of them
+            $navbarBurgers.forEach(function ($el) {
+                $el.addEventListener('click', function () {
+
+                    // Get the target from the "data-target" attribute
+                    var target = $el.dataset.target;
+                    var $target = document.getElementById(target);
+
+                    // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+                    $el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+
+                });
+            });
+        }
+
+    });
+</script>

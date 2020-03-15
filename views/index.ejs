@@ -2,30 +2,14 @@
 
 </head>
 
-<body>
+<body style="background-color: lightsteelblue;">
 
-  <div class="container">
+  <div class="container" style="padding: 10px; background-color: white;">
     <%- include ./partials/nav.ejs %>
+    <%- include ./partials/sidebar.ejs %>
 
-
-
-
-    <section>
-      <div class="columns">
-        <div class="column">
-         
-            <h1 class="title is-1">About you</h1>
-            <p><%= responseHeaders %></p>
-            <%- include ./partials/footer.ejs %>
-         
-        </div>
-
-      </div>
-    </section>
+  
   </div>
-
-
-
 </body>
 
 </html>
