@@ -87,7 +87,7 @@ router.get('/indexing/double-noindex', function (req, res, next) {
       title: 'Double Noindex Tag Test - Seotest.dev',
       responseHeaders: JSON.stringify(req.headers),
       canonical_1_name: "canonical",
-      canonical_1_value: "https://seotest.dev/canonical-target",
+      canonical_1_value: "https://seotest.dev/indexing/canonical-target",
       canonical_2_name: "",
       canonical_2_value: "",
       robots_1_name : "",
