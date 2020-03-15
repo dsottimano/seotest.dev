@@ -25,13 +25,19 @@ router.get('/', function (req, res, next) {
 
     <h2>About this site</h2>
     <p>Written in pure Node JS and powered by the Express JS framework. No CMS! You can see the codebase <a href="https://github.com/dsottimano/seotest.dev">here</a></p>
-     
+    <p>The code is crap! Yep, that may be but it works.  Don't let my learning stop you from scraping and testing against this site.  I test everything to make sure it works.
+    Although the code may not be as good as it should be, it still works for testing purposes. Feel free to give me a hand at dsottimano@gmail.com</p> 
     
     `,
     googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
     ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
     headers: req.headers
   });
+});
+
+router.get('/about', function (req, res, next) {
+  res.setHeader('Content-Type', 'text/html');
+  res.render('about');
 });
 
 
