@@ -1,11 +1,31 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<%- include ./partials/head.ejs %>
+
+</head>
+
+<body>
+
+  <div class="container">
+    <%- include ./partials/nav.ejs %>
+
+
+
+
+    <section>
+      <div class="columns">
+        <div class="column">
+         
+            <h1 class="title is-1">About you</h1>
+            <p><%= responseHeaders %></p>
+            <%- include ./partials/footer.ejs %>
+         
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+
+
+</body>
+
 </html>
