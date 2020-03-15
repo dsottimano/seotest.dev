@@ -5,6 +5,18 @@
 <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title><%= title %></title>
+<%if (canonical_1_name) { %>
+    <link rel="<%= canonical_1_name %>"" href="<%= canonical_1_value %>" />
+<% } %>
+<%if (canonical_2_name) { %>
+    <link rel="<%= canonical_2_name %>"" href="<%= canonical_2_value %>" />
+<% } %>
+<%if (robots_1_name) { %>
+    <meta name="<%= robots_1_name %>" content="<%= robots_1_value %>" />
+<% } %>
+<%if (robots_2_name) { %>
+    <meta name="<%= robots_2_name %>" content="<%= robots_2_value %>" />
+<% } %>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.min.css" integrity="sha256-D9M5yrVDqFlla7nlELDaYZIpXfFWDytQtiV+TaH6F1I=" crossorigin="anonymous" />
 <script src="https://kit.fontawesome.com/7dc3015a44.js" crossorigin="anonymous"></script>
-<%- headConfig %>
+</head>
