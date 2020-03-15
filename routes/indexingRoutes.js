@@ -26,7 +26,7 @@ router.get('/indexing', function (req, res, next) {
     
     </ul>
     `,
-    googleIndex : () => req.protocol + '://' + req.get('host') + req.originalUrl,
+    googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
     ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
     headers: req.headers
   });
