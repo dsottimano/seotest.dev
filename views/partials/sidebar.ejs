@@ -7,9 +7,9 @@
       </p>
       <ul class="menu-list">
         <li><a href="/indexing"><i class="fab fa-css3-alt"></i> Indexing</a></li>
-        <li><a href="/redirects"><i class="fab fa-js"></i> Redirects</a></li>
+        <!-- <li><a href="/redirects"><i class="fab fa-js"></i> Redirects</a></li>
         <li><a href="/international"><i class="fab fa-html5"></i> International SEO</a></li>
-        <li><a href="/html"><i class="fab fa-html5"></i> Naughty HTML</a></li>
+        <li><a href="/html"><i class="fab fa-html5"></i> Naughty HTML</a></li> -->
       </ul>
       <p class="menu-label">
         Popular test pages
@@ -25,11 +25,11 @@
   <div class="column is-8">
     <div class="content is-large">
       <h3 class=""><%= testName %></h3>
-      <p><b>Description:</b> <%- bodyDescription %> </p>
+      <p id="body-description"><%- bodyDescription %> </p>
       <p><b>Check Google Index:</b> <a href="https://www.google.com/search?q=<%- googleIndex %>" rel="noopener"
-          target="_blank"> check here</a> </p>
+          target="_blank"> check Google index for this page</a> </p>
       <p><b>Check Google Cache:</b> <a href="https://webcache.googleusercontent.com/search?q=cache:<%- googleIndex %>"
-          rel="noopener" target="_blank"> check here</a> </p>
+          rel="noopener" target="_blank"> check Google cache for this page</a> </p>
 
       <h3>Request Headers</h3>
       
