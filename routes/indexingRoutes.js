@@ -20,6 +20,8 @@ router.get('/indexing', function (req, res, next) {
     <ul>
     <li><a href="/indexing/noindex-and-self-canonical">Noindex + Self referencing canonical tag<a></li>
     <li><a href="/indexing/double-noindex">Double noindex tags</a></li>
+    <li><a href="/indexing/valid-canonical">Canonical to exact duplicate</a></li>
+    
 
     
     </ul>
@@ -73,6 +75,54 @@ router.get('/indexing/double-noindex', function (req, res, next) {
       testName : "About this test",
       bodyDescription: `
       <p>This page has 2 noindex tags which are identical</p>
+      `,
+      googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
+      ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+      headers: req.headers
+    });
+  });
+
+  router.get('/indexing/valid-canonical', function (req, res, next) {
+    res.render('index', {
+      title: 'Double Noindex Tag Test - Seotest.dev',
+      responseHeaders: JSON.stringify(req.headers),
+      canonical_1_name: "canonical",
+      canonical_1_value: "https://seotest.dev/canonical-target",
+      canonical_2_name: "",
+      canonical_2_value: "",
+      robots_1_name : "",
+      robots_1_value : "",
+      robots_2_name : "",
+      robots_2_value : "",
+      pageHeading: "Indexing Tests",
+      pageSubheading: "Valid canonical",
+      testName : "About this test",
+      bodyDescription: `
+      <p>This page canonicals to an exact duplicate</p>
+      `,
+      googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
+      ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+      headers: req.headers
+    });
+  });
+
+  router.get('/indexing/canonical-target', function (req, res, next) {
+    res.render('index', {
+      title: 'Double Noindex Tag Test - Seotest.dev',
+      responseHeaders: JSON.stringify(req.headers),
+      canonical_1_name: "",
+      canonical_1_value: "",
+      canonical_2_name: "",
+      canonical_2_value: "",
+      robots_1_name : "",
+      robots_1_value : "",
+      robots_2_name : "",
+      robots_2_value : "",
+      pageHeading: "Indexing Tests",
+      pageSubheading: "Valid canonical",
+      testName : "About this test",
+      bodyDescription: `
+      <p>This page canonicals to an exact duplicate</p>
       `,
       googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
       ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
