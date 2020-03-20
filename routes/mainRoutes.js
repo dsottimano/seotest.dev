@@ -5,7 +5,8 @@ var router = express.Router();
 router.get('/', function (req, res, next) {
   res.setHeader('Content-Type', 'text/html');
   res.render('index', {
-    title: 'SEO Testing Ground Homepage',
+    title: 'Live SEO Testing Ground - Seotest.dev',
+    metaDescription : "A collection of live tests for SEO professionals to use for training, educational, or verification purposes.",
     responseHeaders: JSON.stringify(req.headers),
     canonical_1_name: "",
     canonical_1_value: "",
@@ -15,18 +16,19 @@ router.get('/', function (req, res, next) {
     robots_1_value : "",
     robots_2_name : "",
     robots_2_value : "",
-    pageHeading: "SEO Testing Ground",
-    pageSubheading: "A very badly designed site for you to test SEO tools against by David Sottimano",
-    testName : "How this site works",
+    pageTopHeading: "SEOtest.dev is a collection of live SEO tests for training and educational purposes",
+    pageSubHeading: "Check out the test categories below to get started",
+    testName : "Why does this exist?",
     bodyDescription: `<p>This site was designed for those who are developing SEO tools or are curious to see how Googlebot behaves with specific configurations.  Think of it
     as a live test so that you can see how various configurations behave in the wild.<p>
 
     <p>For now this is a work in progress and in the near future I will work towards exposing as much information as possible</p>
 
-    <h2>About this site</h2>
-    <p>Written in pure Node JS and powered by the Express JS framework. No CMS! You can see the codebase <a href="https://github.com/dsottimano/seotest.dev">here</a></p>
-    <p>The code is crap! Yep, that may be but it works.  Don't let my learning stop you from scraping and testing against this site.  I test everything to make sure it works.
-    Although the code may not be as good as it should be, it still works for testing purposes. Feel free to give me a hand at dsottimano@gmail.com</p> 
+    <h3>How the site works </h3>
+    <p>Written in Node JS and powered by the Express JS framework. No CMS! You can see the code <a href="https://github.com/dsottimano/seotest.dev">here</a></p>
+    <p>Feel free to give me additional suggestions at dsottimano@gmail.com</p> 
+
+    <p>You'll notice two sections that appear on each page, Google Links (to check against the live index or cache) and a Request Headers table (which is YOUR information sent to me in HTTP headers)
     
     `,
     googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,

@@ -1,6 +1,6 @@
 <p style="margin-top:50px;"></p>
 <div class="columns">
-  <div class="column is-3">
+  <div class="column is-2 is-divider-vertical">
     <aside class="is-medium menu">
       <p class="menu-label">
         TEST CATEGORIES
@@ -22,69 +22,77 @@
     </aside>
   </div>
   <!-- content goes here -->
-  <div class="column is-8">
-    <div class="content is-large">
-      <h3 class=""><%= testName %></h3>
-      <p id="body-description"><%- bodyDescription %> </p>
-      <p><b>Check Google Index:</b> <a href="https://www.google.com/search?q=<%- googleIndex %>" rel="noopener"
-          target="_blank"> check Google index for this page</a> </p>
-      <p><b>Check Google Cache:</b> <a href="https://webcache.googleusercontent.com/search?q=cache:<%- googleIndex %>"
-          rel="noopener" target="_blank"> check Google cache for this page</a> </p>
+  <div class="column is-10">
+    <div class="content is-medium">
 
-      <h3>Request Headers</h3>
-      
-      <table>
-        <th>Header</th>
-        <th>Value</th>
-        <tr>
-          <td>IP Address or XFF</td>
-          <td><%- ipAddress %></td>
-        </tr>
-        <tr>
-          <td>Host</td>
-          <td><%- headers.host %></td>
-        </tr>
-        <tr>
-          <td>User-agent</td>
-          <td><%- headers['user-agent'] %></td>
-        </tr>
-        <tr>
-          <td>Accept-language</td>
-          <td><%- headers['accept-language'] %></td>
-        </tr>
-        <tr>
-          <td>O/S</td>
-          <td id="operating-system"></td>
-        </tr>
-        <tr>
-          <td>Screen height</td>
-          <td id="screen-height"></td>
-        </tr>
-        <tr>
-          <td>Screen width</td>
-          <td id="screen-width"></td>
-        </tr>
-        <tr>
-          <td>Cookies enabled</td>
-          <td id="cookies"></td>
-        </tr>
-        <tr>
-          <td>Referer</td>
-          <td><%- headers.referer %></td>
-        </tr>
-      </table>
-        
-        
-      
+      <h3 class=""><span class="icon has-text-info"><i class="fas fa-info-circle"></i></span><b>&nbsp;
+          <%= testName %></b></h3>
+      <hr />
+      <p id="body-description"><%- bodyDescription %></p>
+      <div class="is-divider" data-content="OR"></div>
+      <hr />
+      <h3 class=""><span class="icon has-text-warning"><i class="fas fa-exclamation-triangle"></i></span>&nbsp; Specific
+        to this page</h3>
+      <ul>
+        <li><a href="https://www.google.com/search?q=<%- googleIndex %>" rel="noopener" target="_blank"> Check Google
+            index for this page</a> </li>
+        <li><a href="https://webcache.googleusercontent.com/search?q=cache:<%- googleIndex %>" rel="noopener"
+            target="_blank"> Check Google cache for this page</a> </li>
+      </ul>
+      <h4>Your Request Headers</h4>
+      <div class="table-container">
+        <table class="table is-bordered is-striped is-narrow is-hoverable">
+          <th>Header</th>
+          <th>Value</th>
+          <tr>
+            <td>IP Address or XFF</td>
+            <td><%- ipAddress %></td>
+          </tr>
+          <tr>
+            <td>Host</td>
+            <td><%- headers.host %></td>
+          </tr>
+          <tr>
+            <td>User-agent</td>
+            <td><%- headers['user-agent'] %></td>
+          </tr>
+          <tr>
+            <td>Accept-language</td>
+            <td><%- headers['accept-language'] %></td>
+          </tr>
+          <tr>
+            <td>O/S</td>
+            <td id="operating-system"></td>
+          </tr>
+          <tr>
+            <td>Screen height</td>
+            <td id="screen-height"></td>
+          </tr>
+          <tr>
+            <td>Screen width</td>
+            <td id="screen-width"></td>
+          </tr>
+          <tr>
+            <td>Cookies enabled</td>
+            <td id="cookies"></td>
+          </tr>
+          <tr>
+            <td>Referer</td>
+            <td><%- headers.referer %></td>
+          </tr>
+        </table>
+      </div>
+
+
     </div>
   </div>
 
 </div>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
- document.getElementById("operating-system").innerText = window.navigator.appVersion
- document.getElementById("screen-height").innerText = window.screen.availHeight
- document.getElementById("screen-width").innerText = window.screen.availWidth
- document.getElementById("cookies").innerText = navigator.cookieEnabled;
+    document.getElementById("operating-system").innerText = window.navigator.appVersion
+    document.getElementById("screen-height").innerText = window.screen.availHeight
+    document.getElementById("screen-width").innerText = window.screen.availWidth
+    document.getElementById("cookies").innerText = navigator.cookieEnabled;
   })
 </script>

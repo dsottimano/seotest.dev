@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="google-site-verification" content="mFGv54ULzFqYaqaS0oKPzVd0pZ1ExO8ltRMvhki58eM" />
 <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title><%= title %></title>
+<meta name="description" content="<%= metaDescription %>"/>
 <%if (canonical_1_name) { %>
-    <link rel="<%= canonical_1_name %>"" href="<%= canonical_1_value %>" />
+    <link rel="<%= canonical_1_name %>" href="<%= canonical_1_value %>" />
 <% } %>
 <%if (canonical_2_name) { %>
-    <link rel="<%= canonical_2_name %>"" href="<%= canonical_2_value %>" />
+    <link rel="<%= canonical_2_name %>" href="<%= canonical_2_value %>" />
 <% } %>
 <%if (robots_1_name) { %>
     <meta name="<%= robots_1_name %>" content="<%= robots_1_value %>" />
