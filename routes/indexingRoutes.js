@@ -26,6 +26,11 @@ router.get('/indexing', function (req, res, next) {
     <li><a href="/indexing/valid-canonical">Canonical to exact duplicate</a></li>
     </ul>
     
+    <h4>Google Tag Manager Indexing tests</h4>
+    <ul>
+    <li><a href="/indexing/gtm-noindex">Injected meta noindex<a></li>
+    
+    </ul>
     
     <h4>Redirect based tests</h4>
     <ul>
@@ -227,6 +232,34 @@ router.get('/indexing/double-noindex', function (req, res, next) {
     });
   });
 
+
+  router.get('/indexing/gtm-noindex', function (req, res, next) {
+    res.render('index', {
+      title: 'GTM Injected Noindex - Seotest.dev',
+      metaDescription : "",
+      responseHeaders: JSON.stringify(req.headers),
+      canonical_1_name: "",
+      canonical_1_value: "",
+      canonical_2_name: "",
+      canonical_2_value: "",
+      robots_1_name : "",
+      robots_1_value : "",
+      robots_2_name : "",
+      robots_2_value : "",
+      pageSubHeading: "Indexing Tests: Google tag manager",
+      pageTopHeading: "Google Tag Manager Injected Meta Noindex",
+      testName : "About this test",
+      bodyDescription: `
+      <p>Google tag manager will inject a meta noindex into the head of this page</p>
+      <p>If Google does manage to index the noindex tag, this page should not appear in search results</p>
+      `,
+      googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
+      ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+      headers: req.headers
+    });
+  });
+
+  // redirects
 
   router.get('/indexing/googlebot-302', function (req, res, next) {
     if (req.headers['user-agent'].includes("Googlebot")) {
