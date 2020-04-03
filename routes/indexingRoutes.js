@@ -259,6 +259,40 @@ router.get('/indexing/double-noindex', function (req, res, next) {
     });
   });
 
+  router.get('/indexing/gtm-schema', function (req, res, next) {
+    res.render('index', {
+      title: 'GTM Injected schema - Seotest.dev',
+      metaDescription : "",
+      responseHeaders: JSON.stringify(req.headers),
+      canonical_1_name: "",
+      canonical_1_value: "",
+      canonical_2_name: "",
+      canonical_2_value: "",
+      robots_1_name : "",
+      robots_1_value : "",
+      robots_2_name : "",
+      robots_2_value : "",
+      pageSubHeading: "Indexing Tests: Google tag manager schema injection",
+      pageTopHeading: "Google Tag Manager Injected Schema",
+      testName : "About this test",
+      bodyDescription: `
+      <p>Google tag manager will inject a a short schema block into the head of this page</p>
+      <p>The following text has been written using gpt-2</p>
+      <p>SEO testing is essential  to protect our consumers and ensure a safe environment for all.  If  users are exposed to advice that is inherently incorrect, they should not be executing the actions advised.  If you are unsure as to how to evaluate information, please contact us for further assistance..</p>
+
+      <p>If you have questions or concerns regarding the content of this post, please send an email to our Customer Service department and one of our team members will respond promptly.</p>
+    
+      `,
+      googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
+      ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+      headers: req.headers
+    });
+  });
+
+
+
+
+  
   // redirects
 
   router.get('/indexing/googlebot-302', function (req, res, next) {
