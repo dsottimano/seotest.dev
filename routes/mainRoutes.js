@@ -44,7 +44,8 @@ router.get('/about', function (req, res, next) {
 
 function changeRobotsValue(req,res,next) {
   console.log("yo",req.url)
-  if(req.url.includes("cloaking/mobile-cloak")) res.send ("Disallow: /")
+  if(req.url.includes("cloaking/mobile-cloak")) res.send (`User-agent: *
+  Disallow: /`)
   next()
 }
 
