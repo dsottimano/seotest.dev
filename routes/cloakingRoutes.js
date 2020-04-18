@@ -24,7 +24,7 @@ router.get('/cloaking', (req,res) =>{
     <li><a href="/googlebot-302">Googlebot gets redirected via 302 to Homepage</a></li>
     <li><a href="/cloaking/googlebot-301">Googlebot gets redirected via 301 to Homepage</a></li>
     <li><a href="/cloaking/googlebot-307">Googlebot gets redirected via 307 to Homepage</a></li>
-    <li><a href="/cloaking/googlebot-404">Googlebot gets a 404</a></li>
+    <li><a href="/cloaking/mobile-cloak">Full Google cloaking</a></li>
     </ul>
     `,
 
@@ -154,12 +154,11 @@ router.get('/cloaking/googlebot-302', function (req, res, next) {
   });
 
   router.get('/cloaking/mobile-cloak', function (req, res, next) {
-    if (req.headers['user-agent'].includes("Nexus 5X Buildoglebot")) {
-     req.block = "block"
-     req.send("/whatever") 
-    } 
+    if (req.headers['user-agent'].includes("(gfe)")) res.send("good try")
+    if (req.headers['user-agent'].includes("Googlebot") && (req.headers['x-forwarded-for'] || req.connection.remoteAddress).match(/66\.|64\.|74\.|173\.|108\./g) ){
+   
     res.render('index', {
-      title: 'Googlebot gets a 404 - Seotest.dev',
+      title: 'Googlebot cloaking - Seotest.dev',
       metaDescription : "",
       responseHeaders: JSON.stringify(req.headers),
       canonical_1_name: "",
@@ -171,15 +170,18 @@ router.get('/cloaking/googlebot-302', function (req, res, next) {
       robots_2_name : "",
       robots_2_value : "",
       pageSubHeading: "Indexing Tests",
-      pageTopHeading: "Googlebot gets 404 page",
+      pageTopHeading: "Google cloaking test",
       testName : "About this test",
       bodyDescription: `
-      <p>If this page is requested by a Googlebot user-agent, the server will return a 404</p>
-      <p>Otherwise, any other user-agent will be allowed to access this page.</p>
+      <p>You should not be able to see this page unless Google has cached the page</p>
+      <p>Mobile friendly tool won't work because it's being served a special block in robots.txt</p>
       `,
       googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
       ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       headers: req.headers
-    });
-  });
+    })
+  } else {
+    res.send(404)
+  }
+  })
   module.exports = router;
