@@ -43,7 +43,7 @@ router.get('/about', function (req, res, next) {
 });
 
 function changeRobotsValue(req,res,next) {
-  console.log(req.url)
+  if(req.url=="cloaking/mobile-cloak") res.send ("Disallow: /")
   next()
 }
 
