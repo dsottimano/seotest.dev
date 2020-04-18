@@ -43,17 +43,19 @@ router.get('/about', function (req, res, next) {
 });
 
 function changeRobotsValue(req,res,next) {
+  console.log("yo",req.url)
   if(req.url=="cloaking/mobile-cloak") res.send ("Disallow: /")
   next()
 }
 
 
 router.get("/robots.txt",changeRobotsValue, (req,res)=>{
+  console.log(req.url,"yoyoyooy")
   if (req.url = "cloaking/mobile-cloak" && req.headers['user-agent'].includes("Nexus 5X Build")) {
   
-    res.send("Disallow : /") 
+    return res.send("Disallow : /") 
    } 
-   res.send("Disallow:")
+   return res.send("Disallow:")
 })
 
 module.exports = router;

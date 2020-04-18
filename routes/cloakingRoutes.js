@@ -4,7 +4,7 @@ var router = express.Router();
 router.get('/cloaking', (req,res) =>{
 
   res.render('index', {
-    title: 'Indexing Tests - Seotest.dev',
+    title: 'cloaking tests - Seotest.dev',
     metaDescription : "",
     responseHeaders: JSON.stringify(req.headers),
     canonical_1_name: "",
