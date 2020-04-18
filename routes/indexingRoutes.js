@@ -33,12 +33,7 @@ router.get('/indexing', function (req, res, next) {
     </ul>
     
     <h4>Redirect based tests</h4>
-    <ul>
-    <li><a href="/indexing/googlebot-302">Googlebot gets redirected via 302 to Homepage</a></li>
-    <li><a href="/indexing/googlebot-301">Googlebot gets redirected via 301 to Homepage</a></li>
-    <li><a href="/indexing/googlebot-307">Googlebot gets redirected via 307 to Homepage</a></li>
-    <li><a href="/indexing/googlebot-404">Googlebot gets a 404</a></li>
-    </ul>
+    
     <ul>
     <li><a href="/indexing/301">All users get redirected via 301 to Homepage</a></li>
     <li><a href="/indexing/302">All users get redirected via 302 to Homepage</a></li>

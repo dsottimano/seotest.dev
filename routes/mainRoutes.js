@@ -42,5 +42,18 @@ router.get('/about', function (req, res, next) {
   res.render('about');
 });
 
+function changeRobotsValue(req,res,next) {
+  console.log(req.url)
+  next()
+}
+
+
+router.get("/robots.txt",changeRobotsValue, (req,res)=>{
+  if (req.url = "cloaking/mobile-cloak" && req.headers['user-agent'].includes("Nexus 5X Build")) {
+  
+    res.send("Disallow : /") 
+   } 
+   res.send("Disallow:")
+})
 
 module.exports = router;

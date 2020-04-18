@@ -7,6 +7,7 @@ const compression = require('compression');
 
 var mainRoutes = require('./routes/mainRoutes');
 var indexingRoutes = require('./routes/indexingRoutes');
+var cloakingRoutes = require('./routes/cloakingRoutes')
 
 var app = express();
 
@@ -33,6 +34,8 @@ app.use((req, res, next) => {
 //routing
 app.use(mainRoutes);
 app.use(indexingRoutes);
+app.use(cloakingRoutes);
+
 
 
 // catch 404 and forward to error handler
