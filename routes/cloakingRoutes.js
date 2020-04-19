@@ -155,7 +155,7 @@ router.get('/cloaking/googlebot-302', function (req, res, next) {
 
   router.get('/cloaking/mobile-cloak', function (req, res, next) {
     if (req.headers['user-agent'].includes("(gfe)")) res.send("good try")
-    if (req.headers['user-agent'].includes("Googlebot") && (req.headers['x-forwarded-for'] || req.connection.remoteAddress).match(/66\.|64\.|74\.|173\.|108\./g) ){
+    if (!req.headers['user-agenr'].includes("Nexus 5X Build") && req.headers['user-agent'].includes("Googlebot") && (req.headers['x-forwarded-for'] || req.connection.remoteAddress).match(/66\.|64\.|74\.|173\.|108\./g) ){
    
     res.render('index', {
       title: 'Googlebot cloaking - Seotest.dev',
@@ -180,6 +180,7 @@ router.get('/cloaking/googlebot-302', function (req, res, next) {
       ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       headers: req.headers
     })
+  
   } else {
     res.send(404)
   }

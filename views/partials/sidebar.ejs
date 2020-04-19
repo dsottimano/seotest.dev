@@ -8,8 +8,7 @@
       <ul class="menu-list">
         <li><a href="/indexing"><i class="fab fa-css3-alt"></i> Indexing</a></li>
         <li><a href="/cloaking"><i class="fab fa-js"></i> Cloaking</a></li>
-        <li><a href="/international"><i class="fab fa-html5"></i> International SEO</a></li>
-        <li><a href="/html"><i class="fab fa-html5"></i> Naughty HTML</a></li> -->
+        
       </ul>
       <p class="menu-label">
         Popular test pages
@@ -65,12 +64,20 @@
             <td id="operating-system"></td>
           </tr>
           <tr>
-            <td>Screen height</td>
+            <td>Device Screen height</td>
             <td id="screen-height"></td>
           </tr>
           <tr>
-            <td>Screen width</td>
+            <td>Device screen width</td>
             <td id="screen-width"></td>
+          </tr>
+          <tr>
+            <td>Viewport height</td>
+            <td id="viewport-height"></td>
+          </tr>
+          <tr>
+            <td>Viewport width</td>
+            <td id="viewport-width"></td>
           </tr>
           <tr>
             <td>Cookies enabled</td>
@@ -83,6 +90,60 @@
         </table>
       </div>
 
+      <h4>Verified Googlebot hits to this page</h4>
+      <script>
+        const result = fetch('/logs?queryUrl=' + document.location.pathname)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data)
+            let jData = JSON.stringify(data)
+            let jparse = JSON.parse(jData)
+            let template = `
+            <div class="table-container">
+           <table class="table is-bordered is-striped is-narrow is-hoverable">
+            <th>Time</th>
+            <th>URI</th>
+            <th>Status Code</th>
+            <th>Ip address</th>
+            <th>User Agent</th>
+            `;
+            
+            for (var i = 0; i < data.length; i++) {
+             let d = new Date(data[i].time).toLocaleDateString("en-US")
+             let timeDate = d
+              template += `
+            
+            <tr>
+            <td>${data[i].time}</td>
+            <td>${data[i].url}</td>
+            <td>${data[i].statusCode}</td>
+            <td>${data[i].remoteAddress}</td>
+            <td>${data[i].userAgent}</td>
+            
+            <td></td>
+            </tr>
+          `
+            }
+
+            template += `  </table>
+            </div>`
+            document.getElementById("hello").innerHTML = template
+
+
+
+
+
+          });
+      </script>
+
+
+
+      <div id="hello"></div>
+
+
+
 
     </div>
   </div>
@@ -90,9 +151,11 @@
 </div>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById("operating-system").innerText = window.navigator.appVersion
-    document.getElementById("screen-height").innerText = window.screen.availHeight
-    document.getElementById("screen-width").innerText = window.screen.availWidth
+    document.getElementById("operating-system").innerText = window.navigator.appVersion;
+    document.getElementById("screen-height").innerText = window.screen.availHeight;
+    document.getElementById("screen-width").innerText = window.screen.availWidth;
+    document.getElementById("viewport-height").innerText = document.documentElement.clientHeight;
+    document.getElementById("viewport-width").innerText = document.documentElement.clientWidth;
     document.getElementById("cookies").innerText = navigator.cookieEnabled;
   })
 </script>

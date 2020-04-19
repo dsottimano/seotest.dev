@@ -1,24 +1,75 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs')
+var path = require("path")
+
+
+function getLogs(urlRequested) {
+  return new Promise(function (resolve, reject) {
+    
+      let data = fs.readFileSync(path.resolve(__dirname, "../logs/info.log"), 'utf8')
+      let parsedData = data.split('\n')
+   
+     
+      let jsonData = [];
+      let logData = [];
+      
+      
+      try {
+        for (let i = 0; i < parsedData.length; i++) {
+          jsonData.push(JSON.parse(parsedData[i]))
+        }
+
+      } catch (e) {
+        //console.error(e)
+      }
+      
+      for (let y = 0; y < jsonData.length; y++) {
+        if (jsonData[y].url == urlRequested) {
+          logData.push(jsonData[y])
+        }
+      }
+      resolve(logData);
+  })
+
+
+}
+
+
+
+router.get('/logs', async (req, res) => {
+  console.log("query", req.query.queryUrl)
+  const result = getLogs(req.query.queryUrl).then(d => {
+    res.send(d)
+  })
+    .catch(e => res.send(e))
+
+});
+
+
+
+
+
+
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.setHeader('Content-Type', 'text/html');
   res.render('index', {
     title: 'Live SEO Testing Ground - Seotest.dev',
-    metaDescription : "A collection of live tests for SEO professionals to use for training, educational, or verification purposes.",
+    metaDescription: "A collection of live tests for SEO professionals to use for training, educational, or verification purposes.",
     responseHeaders: JSON.stringify(req.headers),
     canonical_1_name: "",
     canonical_1_value: "",
     canonical_2_name: "",
     canonical_2_value: "",
-    robots_1_name : "",
-    robots_1_value : "",
-    robots_2_name : "",
-    robots_2_value : "",
+    robots_1_name: "",
+    robots_1_value: "",
+    robots_2_name: "",
+    robots_2_value: "",
     pageTopHeading: "SEOtest.dev is a collection of live SEO tests for training and educational purposes",
     pageSubHeading: "Check out the test categories below to get started",
-    testName : "Why does this exist?",
+    testName: "Why does this exist?",
     bodyDescription: `<p>This site was designed for those who are developing SEO tools or are curious to see how Googlebot behaves with specific configurations.  Think of it
     as a live test so that you can see how various configurations behave in the wild.<p>
 
@@ -31,7 +82,7 @@ router.get('/', function (req, res, next) {
     <p>You'll notice two sections that appear on each page, Google Links (to check against the live index or cache) and a Request Headers table (which is YOUR information sent to me in HTTP headers)
     
     `,
-    googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
+    googleIndex: req.protocol + '://' + req.get('host') + req.originalUrl,
     ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
     headers: req.headers
   });
@@ -42,21 +93,21 @@ router.get('/about', function (req, res, next) {
   res.render('about');
 });
 
-function changeRobotsValue(req,res,next) {
-  console.log("yo",req.url)
-  if(req.url.includes("cloaking/mobile-cloak")) res.send (`User-agent: *
+function changeRobotsValue(req, res, next) {
+  console.log("yo", req.url)
+  if (req.url.includes("cloaking/mobile-cloak")) res.send(`User-agent: *
   Disallow: /`)
-  next()
+
 }
 
 
-router.get("/robots.txt",changeRobotsValue, (req,res)=>{
-  console.log(req.url,"yoyoyooy")
+router.get("/robots.txt", (req, res) => {
+
   if (req.url = "cloaking/mobile-cloak" && req.headers['user-agent'].includes("Nexus 5X Build")) {
-  
-    return res.send("Disallow : /") 
-   } 
-   return res.send("Disallow:")
+
+    return res.send("Disallow : /")
+  }
+  return res.send("Disallow:")
 })
 
 module.exports = router;
