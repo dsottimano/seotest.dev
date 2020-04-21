@@ -6,7 +6,7 @@ const compression = require('compression');
 var mainRoutes = require('./routes/mainRoutes');
 var indexingRoutes = require('./routes/indexingRoutes');
 var cloakingRoutes = require('./routes/cloakingRoutes');
-let helmet = require('helmet');
+//let helmet = require('helmet');
 const verify = require('googlebot-verify');
 var app = express();
 
@@ -14,7 +14,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(helmet())
+//app.use(helmet())
 app.use(express.json());
 app.use(express.urlencoded({
   extended: false
