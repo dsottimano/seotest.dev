@@ -34,7 +34,7 @@ router.get('/cloaking', (req, res) => {
     `,
 
 
-    googleIndex: req.protocol + '://' + req.get('host') + req.originalUrl,
+    googleIndex: 'https://' + req.get('host') + req.originalUrl,
     ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
     headers: req.headers
   });
@@ -67,7 +67,7 @@ router.get('/cloaking/googlebot-302', function (req, res, next) {
       <p>Otherwise, any other user-agent will be allowed to access this page.  Google should show this URL in search results but the snippet should be from the homepage</p>
       <p> A Google search for this exact URL may be returned, but it is a false positive</p>
       `,
-      googleIndex: req.protocol + '://' + req.get('host') + req.originalUrl,
+      googleIndex: 'https://' + req.get('host') + req.originalUrl,
       ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       headers: req.headers
     });
@@ -99,7 +99,7 @@ router.get('/cloaking/googlebot-301', function (req, res, next) {
       <p>If this page is requested by a Googlebot user-agent, it will automatically 301 to the homepage</p>
       <p>Otherwise, any other user-agent will be allowed to access this page.</p>
       `,
-      googleIndex: req.protocol + '://' + req.get('host') + req.originalUrl,
+      googleIndex: 'https://' + req.get('host') + req.originalUrl,
       ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       headers: req.headers
     });
@@ -131,7 +131,7 @@ router.get('/cloaking/googlebot-307', function (req, res, next) {
       <p>If this page is requested by a Googlebot user-agent, it will automatically 307 to the homepage</p>
       <p>Otherwise, any other user-agent will be allowed to access this page.</p>
       `,
-      googleIndex: req.protocol + '://' + req.get('host') + req.originalUrl,
+      googleIndex: 'https://' + req.get('host') + req.originalUrl,
       ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       headers: req.headers
     });
@@ -163,7 +163,7 @@ router.get('/cloaking/googlebot-404', function (req, res, next) {
       <p>If this page is requested by a Googlebot user-agent, the server will return a 404</p>
       <p>Otherwise, any other user-agent will be allowed to access this page.</p>
       `,
-      googleIndex: req.protocol + '://' + req.get('host') + req.originalUrl,
+      googleIndex: 'https://' + req.get('host') + req.originalUrl,
       ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       headers: req.headers
     });
@@ -193,7 +193,7 @@ router.get('/cloaking/google-only-cloak', async function (req, res, next) {
       <p>You should not be able to see this page unless Google has cached the page</p>
       
       `,
-        googleIndex: req.protocol + '://' + req.get('host') + req.originalUrl,
+        googleIndex: 'https://' + req.get('host') + req.originalUrl,
         ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
         headers: req.headers
       })

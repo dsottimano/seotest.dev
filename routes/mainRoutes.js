@@ -86,7 +86,7 @@ router.get('/', function (req, res, next) {
     Feel free to give me additional suggestions at dsottimano@gmail.com</p> 
     <p>You'll notice two sections that appear on each page, Google Links (to check against the live index or cache) and a Request Headers table (which is YOUR information sent to me in HTTP headers)
     `,
-    googleIndex: req.protocol + '://' + req.get('host') + req.originalUrl,
+    googleIndex: 'https://' + req.get('host') + req.originalUrl,
     ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
     headers: req.headers
   });
