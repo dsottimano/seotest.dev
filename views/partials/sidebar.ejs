@@ -74,7 +74,7 @@
       </table>
     </div>
     <hr />
-    <h4 class="display-5 my-5">Verified Googlebot hits to this page</h4>
+    <h4 class="display-5 font-weight-bold my-3" my-5">Verified Googlebot hits to this page</h4>
     <script>
       const result = fetch('/logs?queryUrl=' + document.location.pathname)
         .then((response) => {
@@ -125,8 +125,9 @@
 
 
     <div id="hello"></div>
+    <h4 class="display-5 font-weight-bold my-3">GA Sessions last 30 days to this page (all channels)</h4>
     <div id="chart-1-container"></div>
-    <div id="chart-2-container"></div>
+  
 
 
 
@@ -149,7 +150,7 @@
 <script>
   fetch('/token').then(r => r.json()).then(data => {
     token = data.access_token;
-    console.log(token)
+  
     gapi.analytics.ready(function () {
 
       /**
@@ -170,9 +171,11 @@
         query: {
           'ids': 'ga:216309965', // <-- Replace with the ids value for your view.
           'start-date': '30daysAgo',
-          'end-date': 'yesterday',
-          'metrics': 'ga:sessions,ga:users',
-          'dimensions': 'ga:date'
+          'end-date': 'today',
+          'metrics': 'ga:sessions',
+          'dimensions': 'ga:date',
+          'filter': 'ga:landingPagePath==' + window.location.pathname
+          
         },
         chart: {
           'container': 'chart-1-container',
@@ -184,34 +187,8 @@
       });
       dataChart1.execute();
 
-
-      /**
-       * Creates a new DataChart instance showing top 5 most popular demos/tools
-       * amongst returning users only.
-       * It will be rendered inside an element with the id "chart-3-container".
-       */
-      var dataChart2 = new gapi.analytics.googleCharts.DataChart({
-        query: {
-          'ids': 'ga:216309965', // <-- Replace with the ids value for your view.
-          'start-date': '30daysAgo',
-          'end-date': 'yesterday',
-          'metrics': 'ga:pageviews',
-          'dimensions': 'ga:pagePathLevel1',
-          'sort': '-ga:pageviews',
-          'max-results': 7
-        },
-        chart: {
-          'container': 'chart-2-container',
-          'type': 'PIE',
-          'options': {
-            'width': '100%',
-            'pieHole': 4 / 9,
-          }
-        }
-      });
-      dataChart2.execute();
-
-    });
+    })
+      
 
   })
 </script>
