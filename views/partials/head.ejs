@@ -4,7 +4,16 @@
 <meta charset="utf-8">
 <meta name="google-site-verification" content="mFGv54ULzFqYaqaS0oKPzVd0pZ1ExO8ltRMvhki58eM" />
 <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="stylesheets/shards.min.css">
+<style>
+ p, ul, li {
+     font-size: 20px !important;
+     line-height: 150%;
+ }   
+</style>
+<!-- <script src="javascripts/bootstrap.min.js"></script> -->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title><%= title %></title>
 <meta name="description" content="<%= metaDescription %>"/>
 <%if (canonical_1_name) { %>
@@ -19,11 +28,8 @@
 <%if (robots_2_name) { %>
     <meta name="<%= robots_2_name %>" content="<%= robots_2_value %>" />
 <% } %>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.min.css" integrity="sha256-D9M5yrVDqFlla7nlELDaYZIpXfFWDytQtiV+TaH6F1I=" crossorigin="anonymous" />
-<script src="https://kit.fontawesome.com/7dc3015a44.js" crossorigin="anonymous"></script>
-<style>
-    a:visited { text-decoration: none; color:purple; }
-</style>
+
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

@@ -6,15 +6,11 @@ var path = require("path")
 
 function getLogs(urlRequested) {
   return new Promise(function (resolve, reject) {
-    
       let data = fs.readFileSync(path.resolve(__dirname, "../logs/info.log"), 'utf8')
       let parsedData = data.split('\n')
-   
-     
       let jsonData = [];
       let logData = [];
-      
-      
+
       try {
         for (let i = 0; i < parsedData.length; i++) {
           jsonData.push(JSON.parse(parsedData[i]))
@@ -31,11 +27,7 @@ function getLogs(urlRequested) {
       }
       resolve(logData);
   })
-
-
 }
-
-
 
 router.get('/logs', async (req, res) => {
   console.log("query", req.query.queryUrl)
@@ -45,11 +37,6 @@ router.get('/logs', async (req, res) => {
     .catch(e => res.send(e))
 
 });
-
-
-
-
-
 
 
 /* GET home page. */
@@ -72,15 +59,11 @@ router.get('/', function (req, res, next) {
     testName: "Why does this exist?",
     bodyDescription: `<p>This site was designed for those who are developing SEO tools or are curious to see how Googlebot behaves with specific configurations.  Think of it
     as a live test so that you can see how various configurations behave in the wild.<p>
-
     <p>For now this is a work in progress and in the near future I will work towards exposing as much information as possible</p>
-
     <h3>How the site works </h3>
-    <p>Written in Node JS and powered by the Express JS framework. No CMS! You can see the code <a href="https://github.com/dsottimano/seotest.dev">here</a></p>
-    <p>Feel free to give me additional suggestions at dsottimano@gmail.com</p> 
-
+    <p>Written in Node JS and powered by the Express JS framework. No CMS! You can see the code <a href="https://github.com/dsottimano/seotest.dev">here</a>
+    Feel free to give me additional suggestions at dsottimano@gmail.com</p> 
     <p>You'll notice two sections that appear on each page, Google Links (to check against the live index or cache) and a Request Headers table (which is YOUR information sent to me in HTTP headers)
-    
     `,
     googleIndex: req.protocol + '://' + req.get('host') + req.originalUrl,
     ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
@@ -93,20 +76,13 @@ router.get('/about', function (req, res, next) {
   res.render('about');
 });
 
-function changeRobotsValue(req, res, next) {
-  console.log("yo", req.url)
-  if (req.url.includes("cloaking/mobile-cloak")) res.send(`User-agent: *
-  Disallow: /`)
 
-}
 
 
 router.get("/robots.txt", (req, res) => {
-
-  if (req.url = "cloaking/mobile-cloak" && req.headers['user-agent'].includes("Nexus 5X Build")) {
-
-    return res.send("Disallow : /")
-  }
+  // if (req.url = "/cloaking/mobile-cloak" && req.headers['user-agent'].includes("Nexus 5X Build")) {
+  //   return res.send("Disallow : /")
+  // }
   return res.send("Disallow:")
 })
 

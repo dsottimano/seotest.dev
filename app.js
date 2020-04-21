@@ -3,18 +3,18 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 const compression = require('compression');
-
 var mainRoutes = require('./routes/mainRoutes');
 var indexingRoutes = require('./routes/indexingRoutes');
-var cloakingRoutes = require('./routes/cloakingRoutes')
-
+var cloakingRoutes = require('./routes/cloakingRoutes');
+let helmet = require('helmet');
+const verify = require('googlebot-verify');
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-//app.use(logger('dev'));
+app.use(helmet())
 app.use(express.json());
 app.use(express.urlencoded({
   extended: false
@@ -22,6 +22,8 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(compression());
+app.disable('x-powered-by')
+
 
 var fs = require('fs')
 
@@ -48,7 +50,7 @@ function logger(req, res, next) {
     return next()
   }
   if (req.headers['user-agent'].includes("Googlebot")) {
-    const verify = require('googlebot-verify');
+   
     const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
     verify(ip, (error, isGoogle) => {
@@ -78,15 +80,6 @@ function logger(req, res, next) {
 
 app.use(logger)
 
-// app.use((req, res, next) => {
-//  if (req.url = "/") {
-//    log.info({
-//     "ua" : req.headers['user-agent'],
-//     "ua2" : "test1"
-//     })
-//  }
-//  next();
-// });
 
 
 //remove trailing slashes

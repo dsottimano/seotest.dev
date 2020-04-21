@@ -15,7 +15,7 @@ router.get('/indexing', function (req, res, next) {
     robots_2_name : "",
     robots_2_value : "",
     pageSubHeading: "Indexing Tests",
-    pageTopHeading: "This section is about search engine indexing testing",
+    pageTopHeading: "This section is about search engine indexing",
     testName : "Available tests",
     bodyDescription: `
     <h4>Directives based tests</h4>
@@ -422,7 +422,7 @@ router.get('/indexing/307', function (req, res, next) {
 });
 
 router.get('/indexing/404', function (req, res, next) {
-    return res.send(404)
+    return res.sendStatus(404)
 
 });
 
