@@ -162,38 +162,40 @@ router.get('/cloaking/googlebot-404', function (req, res, next) {
 });
 
 router.get('/cloaking/google-only-cloak', function (req, res, next) {
-  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  const reverseDNSLookup = require('reverse-dns-lookup');
 
-  verify(ip, (error, isGoogle) => {
-    if (error) res.send(error)
-    if (isGoogle) {
-      res.render('index', {
-        title: 'Googlebot cloaking - Seotest.dev',
-        metaDescription: "",
-        responseHeaders: JSON.stringify(req.headers),
-        canonical_1_name: "",
-        canonical_1_value: "",
-        canonical_2_name: "",
-        canonical_2_value: "",
-        robots_1_name: "",
-        robots_1_value: "",
-        robots_2_name: "",
-        robots_2_value: "",
-        pageSubHeading: "Cloaking Tests",
-        pageTopHeading: "Google cloaking test",
-        testName: "About this test",
-        bodyDescription: `
+  let googlebot = /googlebot/i.test(request.headers['user-agent']);
+
+  if (googlebot) { // It says it's Googlebot
+    const ip = request.headers['x-forwarded-for'];
+    googlebot = await reverseDNSLookup(ip, 'google.com', 'googlebot.com'); // Okay, it's Googlebot
+    res.render('index', {
+      title: 'Googlebot cloaking - Seotest.dev',
+      metaDescription: "",
+      responseHeaders: JSON.stringify(req.headers),
+      canonical_1_name: "",
+      canonical_1_value: "",
+      canonical_2_name: "",
+      canonical_2_value: "",
+      robots_1_name: "",
+      robots_1_value: "",
+      robots_2_name: "",
+      robots_2_value: "",
+      pageSubHeading: "Cloaking Tests",
+      pageTopHeading: "Google cloaking test",
+      testName: "About this test",
+      bodyDescription: `
       <p>You should not be able to see this page unless Google has cached the page</p>
       
       `,
-        googleIndex: req.protocol + '://' + req.get('host') + req.originalUrl,
-        ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
-        headers: req.headers
-      })
+      googleIndex: req.protocol + '://' + req.get('host') + req.originalUrl,
+      ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+      headers: req.headers
+    })
 
-    } else {
-      res.sendStatus(401)
-    }
-  })
+  } else {
+    res.sendStatus(401)
+  }
+
 });
 module.exports = router;
