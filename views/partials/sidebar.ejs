@@ -1,28 +1,29 @@
 <div class="row">
-  <div class="col-xs-12 col-md-2 pl-5" style="border-right: 1px solid grey;"> 
-   
-      <p class="menu-label">
-        TEST CATEGORIES
-      </p>
-      
-     <p><a href="/indexing">Indexing</a></p>
-     <p><a href="/cloaking">Cloaking</a></p>
-    
-    
+  <div class="col-xs-12 col-md-2 pl-5" style="border-right: 1px solid grey;">
+
+    <p class="menu-label">
+      TEST CATEGORIES
+    </p>
+
+    <p><a href="/indexing">Indexing</a></p>
+    <p><a href="/cloaking">Cloaking</a></p>
+
+
   </div>
-  
+
   <div class="col-xs-12 col-md-10 pl-5">
     <h3 class="font-weight-bold my-3"><%= testName %></h3>
     <hr />
     <%- bodyDescription %>
-    
+
     <hr />
     <h4 class="display-5 my-5 font-weight-bold"> Specific to this page</h3>
-    <p><a href="https://www.google.com/search?q=<%- googleIndex %>" rel="noopener" target="_blank"> Check Google
+      <p><a href="https://www.google.com/search?q=<%- googleIndex %>" rel="noopener" target="_blank"> Check Google
           index for this page</a></p>
-    <h5 class="display-5 my-5">Your Request Headers</h4>
+      <h5 class="display-5 my-5">Your Request Headers
+    </h4>
     <div class="table-responsive">
-      
+
       <table class="table is-bordered is-striped is-narrow is-hoverable">
         <th>Header</th>
         <th>Value</th>
@@ -72,7 +73,7 @@
         </tr>
       </table>
     </div>
-    <hr/>
+    <hr />
     <h4 class="display-5 my-5">Verified Googlebot hits to this page</h4>
     <script>
       const result = fetch('/logs?queryUrl=' + document.location.pathname)
@@ -124,7 +125,8 @@
 
 
     <div id="hello"></div>
-
+    <div id="chart-1-container"></div>
+    <div id="chart-2-container"></div>
 
 
 
@@ -140,5 +142,76 @@
     document.getElementById("viewport-height").innerText = document.documentElement.clientHeight;
     document.getElementById("viewport-width").innerText = document.documentElement.clientWidth;
     document.getElementById("cookies").innerText = navigator.cookieEnabled;
+  })
+</script>
+
+
+<script>
+  fetch('/token').then(r => r.json()).then(data => {
+    token = data.access_token;
+    console.log(token)
+    gapi.analytics.ready(function () {
+
+      /**
+       * Authorize the user with an access token obtained server side.
+       */
+      gapi.analytics.auth.authorize({
+        'serverAuth': {
+          'access_token': token
+        }
+      });
+
+
+      /**
+       * Creates a new DataChart instance showing sessions over the past 30 days.
+       * It will be rendered inside an element with the id "chart-1-container".
+       */
+      var dataChart1 = new gapi.analytics.googleCharts.DataChart({
+        query: {
+          'ids': 'ga:216309965', // <-- Replace with the ids value for your view.
+          'start-date': '30daysAgo',
+          'end-date': 'yesterday',
+          'metrics': 'ga:sessions,ga:users',
+          'dimensions': 'ga:date'
+        },
+        chart: {
+          'container': 'chart-1-container',
+          'type': 'LINE',
+          'options': {
+            'width': '100%'
+          }
+        }
+      });
+      dataChart1.execute();
+
+
+      /**
+       * Creates a new DataChart instance showing top 5 most popular demos/tools
+       * amongst returning users only.
+       * It will be rendered inside an element with the id "chart-3-container".
+       */
+      var dataChart2 = new gapi.analytics.googleCharts.DataChart({
+        query: {
+          'ids': 'ga:216309965', // <-- Replace with the ids value for your view.
+          'start-date': '30daysAgo',
+          'end-date': 'yesterday',
+          'metrics': 'ga:pageviews',
+          'dimensions': 'ga:pagePathLevel1',
+          'sort': '-ga:pageviews',
+          'max-results': 7
+        },
+        chart: {
+          'container': 'chart-2-container',
+          'type': 'PIE',
+          'options': {
+            'width': '100%',
+            'pieHole': 4 / 9,
+          }
+        }
+      });
+      dataChart2.execute();
+
+    });
+
   })
 </script>

@@ -3,37 +3,56 @@ var router = express.Router();
 var fs = require('fs')
 var path = require("path")
 
+router.get('/token', async (req, res) => {
+  const {
+    GoogleToken
+  } = require('gtoken');
+  const gtoken = new GoogleToken({
+    keyFile: path.join(__dirname + '/../service.json'), // or path to .p12 key file
+    email: 'seotest-dev@project-id-8178436313711074464.iam.gserviceaccount.com',
+    scope: ['https://www.googleapis.com/auth/analytics.readonly'] // or space-delimited string of scopes
+  });
+
+  gtoken.getToken((err, tokens) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    res.send(tokens);
+   
+  });
+});
 
 function getLogs(urlRequested) {
   return new Promise(function (resolve, reject) {
-      let data = fs.readFileSync(path.resolve(__dirname, "../logs/info.log"), 'utf8')
-      let parsedData = data.split('\n')
-      let jsonData = [];
-      let logData = [];
+    let data = fs.readFileSync(path.resolve(__dirname, "../logs/info.log"), 'utf8')
+    let parsedData = data.split('\n')
+    let jsonData = [];
+    let logData = [];
 
-      try {
-        for (let i = 0; i < parsedData.length; i++) {
-          jsonData.push(JSON.parse(parsedData[i]))
-        }
+    try {
+      for (let i = 0; i < parsedData.length; i++) {
+        jsonData.push(JSON.parse(parsedData[i]))
+      }
 
-      } catch (e) {
-        //console.error(e)
+    } catch (e) {
+      //console.error(e)
+    }
+
+    for (let y = 0; y < jsonData.length; y++) {
+      if (jsonData[y].url == urlRequested) {
+        logData.push(jsonData[y])
       }
-      
-      for (let y = 0; y < jsonData.length; y++) {
-        if (jsonData[y].url == urlRequested) {
-          logData.push(jsonData[y])
-        }
-      }
-      resolve(logData);
+    }
+    resolve(logData);
   })
 }
 
 router.get('/logs', async (req, res) => {
   console.log("query", req.query.queryUrl)
   const result = getLogs(req.query.queryUrl).then(d => {
-    res.send(d)
-  })
+      res.send(d)
+    })
     .catch(e => res.send(e))
 
 });
