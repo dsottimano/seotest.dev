@@ -2,6 +2,7 @@ var express = require('express');
 const verify = require('googlebot-verify');
 var router = express.Router();
 
+
 router.get('/cloaking', (req, res) => {
 
   res.render('index', {
@@ -100,31 +101,34 @@ router.get('/cloaking/googlebot-301', function (req, res, next) {
 });
 
 router.get('/cloaking/googlebot-307', function (req, res, next) {
-  if (req.headers['user-agent'].includes("Googlebot")) {
-    return res.redirect(307, 'https://seotest.dev')
-  }
-  res.render('index', {
-    title: 'Googlebot gets redirected via 307 to Homepage - Seotest.dev',
-    metaDescription: "",
-    responseHeaders: JSON.stringify(req.headers),
-    canonical_1_name: "",
-    canonical_1_value: "",
-    canonical_2_name: "",
-    canonical_2_value: "",
-    robots_1_name: "",
-    robots_1_value: "",
-    robots_2_name: "",
-    robots_2_value: "",
-    pageSubHeading: "Indexing Tests",
-    pageTopHeading: "Googlebot gets redirected via 307 to Homepage",
-    testName: "About this test",
-    bodyDescription: `
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  verify(ip, (error, isGoogle) => {
+    if (isGoogle) {
+      return res.redirect(307, 'https://seotest.dev')
+    }
+    res.render('index', {
+      title: 'Googlebot gets redirected via 307 to Homepage - Seotest.dev',
+      metaDescription: "",
+      responseHeaders: JSON.stringify(req.headers),
+      canonical_1_name: "",
+      canonical_1_value: "",
+      canonical_2_name: "",
+      canonical_2_value: "",
+      robots_1_name: "",
+      robots_1_value: "",
+      robots_2_name: "",
+      robots_2_value: "",
+      pageSubHeading: "Indexing Tests",
+      pageTopHeading: "Googlebot gets redirected via 307 to Homepage",
+      testName: "About this test",
+      bodyDescription: `
       <p>If this page is requested by a Googlebot user-agent, it will automatically 307 to the homepage</p>
       <p>Otherwise, any other user-agent will be allowed to access this page.</p>
       `,
-    googleIndex: req.protocol + '://' + req.get('host') + req.originalUrl,
-    ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
-    headers: req.headers
+      googleIndex: req.protocol + '://' + req.get('host') + req.originalUrl,
+      ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+      headers: req.headers
+    });
   });
 });
 
@@ -187,7 +191,7 @@ router.get('/cloaking/google-only-cloak', function (req, res, next) {
       })
 
     } else {
-      res.send(404)
+      res.sendStatus(401)
     }
   })
 });
