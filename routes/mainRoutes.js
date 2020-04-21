@@ -79,9 +79,10 @@ router.get('/', function (req, res, next) {
     bodyDescription: `<p>This site was designed for those who are developing SEO tools or are curious to see how Googlebot behaves with specific configurations.  Think of it
     as a live test so that you can see how various configurations behave in the wild.<p>
     <p>For now this is a work in progress and in the near future I will work towards exposing as much information as possible</p>
+    <p>I need links, if you can, please link to this site to encourage crawl. I promise it will be open source forever</p>
     <h3 class="font-weight-bold">How the site works </h3>
     <hr/>
-    <p>Written in Node JS and powered by the Express JS framework. No CMS! You can see the code <a href="https://github.com/dsottimano/seotest.dev">here</a>
+    <p>Written in Node JS and powered by the Express JS framework. No CMS! You can see the code <a href="https://github.com/dsottimano/seotest.dev">here</a>.
     Feel free to give me additional suggestions at dsottimano@gmail.com</p> 
     <p>You'll notice two sections that appear on each page, Google Links (to check against the live index or cache) and a Request Headers table (which is YOUR information sent to me in HTTP headers)
     `,

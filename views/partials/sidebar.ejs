@@ -125,7 +125,7 @@
 
 
     <div id="hello"></div>
-    <h4 class="display-5 font-weight-bold my-3">GA Sessions last 30 days to all pages (all channels)</h4>
+    <h4 class="display-5 font-weight-bold my-3">GA Sessions last 30 days to this page (all channels)</h4>
     <div id="chart-1-container"></div>
   
 
@@ -173,13 +173,13 @@
           'start-date': '30daysAgo',
           'end-date': 'today',
           'metrics': 'ga:sessions',
-          'dimensions': 'ga:landingPagePath',
+          'dimensions': 'ga:date',
           'filters': 'ga:landingPagePath=='+document.location.pathname
           
         },
         chart: {
           'container': 'chart-1-container',
-          'type': 'TABLE',
+          'type': 'LINE',
           'options': {
             'width': '100%'
           }
