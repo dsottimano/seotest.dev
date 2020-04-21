@@ -80,10 +80,12 @@ router.get('/about', function (req, res, next) {
 
 
 router.get("/robots.txt", (req, res) => {
-  // if (req.url = "/cloaking/mobile-cloak" && req.headers['user-agent'].includes("Nexus 5X Build")) {
-  //   return res.send("Disallow : /")
-  // }
-  return res.send("Disallow:")
+  res.setHeader('Content-type', 'text/plain');
+  return res.send(`
+  User-agent: *
+  Disallow: 
+  
+  `)
 })
 
 module.exports = router;

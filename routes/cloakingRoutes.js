@@ -165,6 +165,7 @@ router.get('/cloaking/google-only-cloak', function (req, res, next) {
   const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
   verify(ip, (error, isGoogle) => {
+    if (error) res.send(error)
     if (isGoogle) {
       res.render('index', {
         title: 'Googlebot cloaking - Seotest.dev',
