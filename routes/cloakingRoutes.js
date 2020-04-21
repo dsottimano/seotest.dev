@@ -23,7 +23,7 @@ router.get('/cloaking', (req, res) => {
     bodyDescription: `
     <h4>Cloaking redirects</h4>
     <ul>
-    <li><a href="/googlebot-302">Googlebot gets redirected via 302 to Homepage</a></li>
+    <li><a href="/cloaking/googlebot-302">Googlebot gets redirected via 302 to Homepage</a></li>
     <li><a href="/cloaking/googlebot-301">Googlebot gets redirected via 301 to Homepage</a></li>
     <li><a href="/cloaking/googlebot-307">Googlebot gets redirected via 307 to Homepage</a></li>
     </ul>

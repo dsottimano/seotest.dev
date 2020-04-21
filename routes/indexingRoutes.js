@@ -18,12 +18,17 @@ router.get('/indexing', function (req, res, next) {
     pageTopHeading: "This section is about search engine indexing",
     testName : "Available tests",
     bodyDescription: `
-    <h4>Directives based tests</h4>
+    <h4>Meta Directives based tests</h4>
     <ul>
     <li><a href="/indexing/noindex-and-self-canonical">Noindex + Self referencing canonical tag<a></li>
     <li><a href="/indexing/noindex-and-canonical">Noindex + canonical to identical page<a></li>
     <li><a href="/indexing/double-noindex">Double noindex tags</a></li>
     <li><a href="/indexing/valid-canonical">Canonical to exact duplicate</a></li>
+    </ul>
+    <h4>HTTP Directives based tests</h4>
+    <ul>
+    <li><a href="/indexing/x-robots-noindex">http noindex, link to indexable page<a></li>
+  
     </ul>
     
     <h4>Google Tag Manager Indexing tests</h4>
@@ -274,6 +279,7 @@ router.get('/indexing/double-noindex', function (req, res, next) {
       testName : "About this test",
       bodyDescription: `
       <p>Google tag manager will inject a a short schema block into the head of this page</p>
+      <p>You can check if this works <a href="https://search.google.com/structured-data/testing-tool/u/0/#url=https%3A%2F%2Fseotest.dev%2Findexing%2Fgtm-schema">here</a></p>
       <p>The following text has been written using gpt-2</p>
       <p>SEO testing is essential  to protect our consumers and ensure a safe environment for all.  If  users are exposed to advice that is inherently incorrect, they should not be executing the actions advised.  If you are unsure as to how to evaluate information, please contact us for further assistance..</p>
 
@@ -286,18 +292,10 @@ router.get('/indexing/double-noindex', function (req, res, next) {
     });
   });
 
-
-
-
-  
-  // redirects
-
-  router.get('/indexing/googlebot-302', function (req, res, next) {
-    if (req.headers['user-agent'].includes("Googlebot")) {
-        return res.redirect(302, 'https://seotest.dev')
-    } 
+  router.get('/indexing/x-robots-noindex', function (req, res, next) {
+    res.set('X-Robots-Tag', 'noindex');
     res.render('index', {
-      title: 'Googlebot gets redirected via 302 to Homepage - Seotest.dev',
+      title: 'X robots noindex link to indexable page - Seotest.dev',
       metaDescription : "",
       responseHeaders: JSON.stringify(req.headers),
       canonical_1_name: "",
@@ -308,13 +306,14 @@ router.get('/indexing/double-noindex', function (req, res, next) {
       robots_1_value : "",
       robots_2_name : "",
       robots_2_value : "",
-      pageSubHeading: "Indexing Tests",
-      pageTopHeading: "Googlebot gets redirected via 302 to Homepage",
+      pageSubHeading: "Indexing Tests: X robots noindex link to indexable page",
+      pageTopHeading: "X robots noindex",
       testName : "About this test",
       bodyDescription: `
-      <p>If this page is requested by a Googlebot user-agent, it will automatically 302 to the homepage</p>
-      <p>Otherwise, any other user-agent will be allowed to access this page.  Google should show this URL in search results but the snippet should be from the homepage</p>
-      <p> A Google search for this exact URL may be returned, but it is a false positive</p>
+      <p>This page has an x robots noindex tag (http header)</p>
+      <p>Will it crawl the following <a href="/indexing/x-robots-noindex-target">page</a> which is only linked to from this page?<p>
+      <p>This test was inspired by this <a href="https://twitter.com/thetafferboy/status/1252366880079151104">tweet</a></p>
+      
       `,
       googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
       ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
@@ -322,12 +321,9 @@ router.get('/indexing/double-noindex', function (req, res, next) {
     });
   });
 
-  router.get('/indexing/googlebot-301', function (req, res, next) {
-    if (req.headers['user-agent'].includes("Googlebot")) {
-        return res.redirect(301, 'https://seotest.dev')
-    } 
+  router.get('/indexing/x-robots-noindex-target', function (req, res, next) {
     res.render('index', {
-      title: 'Googlebot gets redirected via 301 to Homepage - Seotest.dev',
+      title: 'Indexable page taget for x robots test- Seotest.dev',
       metaDescription : "",
       responseHeaders: JSON.stringify(req.headers),
       canonical_1_name: "",
@@ -338,12 +334,12 @@ router.get('/indexing/double-noindex', function (req, res, next) {
       robots_1_value : "",
       robots_2_name : "",
       robots_2_value : "",
-      pageSubHeading: "Indexing Tests",
-      pageTopHeading: "Googlebot gets redirected via 301 to Homepage",
+      pageSubHeading: "Indexing Tests: Indexable page taget for x robots test",
+      pageTopHeading: "X robots noindex link to indexable page",
       testName : "About this test",
       bodyDescription: `
-      <p>If this page is requested by a Googlebot user-agent, it will automatically 301 to the homepage</p>
-      <p>Otherwise, any other user-agent will be allowed to access this page.</p>
+      <p>Not much to see here this is just an indexable page</p>
+      
       `,
       googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
       ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
@@ -351,63 +347,6 @@ router.get('/indexing/double-noindex', function (req, res, next) {
     });
   });
 
-  router.get('/indexing/googlebot-307', function (req, res, next) {
-    if (req.headers['user-agent'].includes("Googlebot")) {
-        return res.redirect(307, 'https://seotest.dev')
-    } 
-    res.render('index', {
-      title: 'Googlebot gets redirected via 307 to Homepage - Seotest.dev',
-      metaDescription : "",
-      responseHeaders: JSON.stringify(req.headers),
-      canonical_1_name: "",
-      canonical_1_value: "",
-      canonical_2_name: "",
-      canonical_2_value: "",
-      robots_1_name : "",
-      robots_1_value : "",
-      robots_2_name : "",
-      robots_2_value : "",
-      pageSubHeading: "Indexing Tests",
-      pageTopHeading: "Googlebot gets redirected via 307 to Homepage",
-      testName : "About this test",
-      bodyDescription: `
-      <p>If this page is requested by a Googlebot user-agent, it will automatically 307 to the homepage</p>
-      <p>Otherwise, any other user-agent will be allowed to access this page.</p>
-      `,
-      googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
-      ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
-      headers: req.headers
-    });
-  });
-
-  router.get('/indexing/googlebot-404', function (req, res, next) {
-    if (req.headers['user-agent'].includes("Googlebot")) {
-        return res.send(404)
-    } 
-    res.render('index', {
-      title: 'Googlebot gets a 404 - Seotest.dev',
-      metaDescription : "",
-      responseHeaders: JSON.stringify(req.headers),
-      canonical_1_name: "",
-      canonical_1_value: "",
-      canonical_2_name: "",
-      canonical_2_value: "",
-      robots_1_name : "",
-      robots_1_value : "",
-      robots_2_name : "",
-      robots_2_value : "",
-      pageSubHeading: "Indexing Tests",
-      pageTopHeading: "Googlebot gets 404 page",
-      testName : "About this test",
-      bodyDescription: `
-      <p>If this page is requested by a Googlebot user-agent, the server will return a 404</p>
-      <p>Otherwise, any other user-agent will be allowed to access this page.</p>
-      `,
-      googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
-      ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
-      headers: req.headers
-    });
-  });
 
   router.get('/indexing/302', function (req, res, next) {
     return res.redirect(302, 'https://seotest.dev')
