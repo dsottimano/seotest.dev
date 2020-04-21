@@ -161,10 +161,10 @@ router.get('/cloaking/googlebot-404', function (req, res, next) {
   });
 });
 
-router.get('/cloaking/google-only-cloak', function (req, res, next) {
+router.get('/cloaking/google-only-cloak', async function (req, res, next) {
   const reverseDNSLookup = require('reverse-dns-lookup');
 
-  let googlebot = /googlebot/i.test(request.headers['user-agent']);
+  let googlebot = /googlebot/i.test(req.headers['user-agent']);
 
   if (googlebot) { // It says it's Googlebot
     const ip = request.headers['x-forwarded-for'];
