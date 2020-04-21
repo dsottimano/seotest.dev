@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+let utils = require('../utils')
 
 router.get('/indexing', function (req, res, next) {
   res.render('index', {
@@ -50,7 +51,7 @@ router.get('/indexing', function (req, res, next) {
     `,
 
 
-    googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
+    googleIndex : req.url,
     ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
     headers: req.headers
   });
@@ -76,7 +77,7 @@ router.get('/indexing/noindex-and-self-canonical', function (req, res, next) {
     <p>This page has a noindex directive and a self referencing canonical tag</p>
     <p>The canonical tag appears before the noindex tag</p>
     `,
-    googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
+    googleIndex : 'https://' + req.get('host') + req.originalUrl,
     ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
     headers: req.headers
   });
@@ -102,7 +103,7 @@ router.get('/indexing/noindex-and-canonical', function (req, res, next) {
       <p>This page has a noindex directive and a canonical tag to an exact duplicate</p>
       <p>The canonical tag appears before the noindex tag</p>
       `,
-      googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
+      googleIndex : 'https://' + req.get('host') + req.originalUrl,
       ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       headers: req.headers
     });
@@ -128,7 +129,7 @@ router.get('/indexing/noindex-and-canonical', function (req, res, next) {
       <p>This page has a noindex directive and a canonical tag to an exact duplicate</p>
       <p>The canonical tag appears before the noindex tag</p>
       `,
-      googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
+      googleIndex : 'https://' + req.get('host') + req.originalUrl,
       ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       headers: req.headers
     });
@@ -153,7 +154,7 @@ router.get('/indexing/double-noindex', function (req, res, next) {
       bodyDescription: `
       <p>This page has 2 noindex tags which are identical</p>
       `,
-      googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
+      googleIndex : 'https://' + req.get('host') + req.originalUrl,
       ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       headers: req.headers
     });
@@ -178,7 +179,7 @@ router.get('/indexing/double-noindex', function (req, res, next) {
       bodyDescription: `
       <p>This page canonicals to an exact duplicate</p>
       `,
-      googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
+      googleIndex : 'https://' + req.get('host') + req.originalUrl,
       ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       headers: req.headers
     });
@@ -203,7 +204,7 @@ router.get('/indexing/double-noindex', function (req, res, next) {
       bodyDescription: `
       <p>This page canonicals to an exact duplicate</p>
       `,
-      googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
+      googleIndex : 'https://' + req.get('host') + req.originalUrl,
       ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       headers: req.headers
     });
@@ -228,7 +229,7 @@ router.get('/indexing/double-noindex', function (req, res, next) {
       bodyDescription: `
       <p>This page canonicals to an exact duplicate</p>
       `,
-      googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
+      googleIndex : 'https://' + req.get('host') + req.originalUrl,
       ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       headers: req.headers
     });
@@ -255,7 +256,7 @@ router.get('/indexing/double-noindex', function (req, res, next) {
       <p>Google tag manager will inject a meta noindex into the head of this page</p>
       <p>If Google does manage to index the noindex tag, this page should not appear in search results</p>
       `,
-      googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
+      googleIndex : 'https://' + req.get('host') + req.originalUrl,
       ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       headers: req.headers
     });
@@ -286,7 +287,7 @@ router.get('/indexing/double-noindex', function (req, res, next) {
       <p>If you have questions or concerns regarding the content of this post, please send an email to our Customer Service department and one of our team members will respond promptly.</p>
     
       `,
-      googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
+      googleIndex : 'https://' + req.get('host') + req.originalUrl,
       ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       headers: req.headers
     });
@@ -315,7 +316,7 @@ router.get('/indexing/double-noindex', function (req, res, next) {
       <p>This test was inspired by this <a href="https://twitter.com/thetafferboy/status/1252366880079151104">tweet</a></p>
       
       `,
-      googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
+      googleIndex : 'https://' + req.get('host') + req.originalUrl,
       ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       headers: req.headers
     });
@@ -341,7 +342,7 @@ router.get('/indexing/double-noindex', function (req, res, next) {
       <p>Not much to see here this is just an indexable page</p>
       
       `,
-      googleIndex : req.protocol + '://' + req.get('host') + req.originalUrl,
+      googleIndex : 'https://' + req.get('host') + req.originalUrl,
       ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       headers: req.headers
     });
