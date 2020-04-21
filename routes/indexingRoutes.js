@@ -29,6 +29,8 @@ router.get('/indexing', function (req, res, next) {
     <h4>Google Tag Manager Indexing tests</h4>
     <ul>
     <li><a href="/indexing/gtm-noindex">Injected meta noindex<a></li>
+    <li><a href="/indexing/gtm-schema">Injected website schema<a></li>
+    
     
     </ul>
     
