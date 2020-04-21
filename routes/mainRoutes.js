@@ -79,13 +79,13 @@ router.get('/about', function (req, res, next) {
 
 
 
-// router.get("/robots.txt", (req, res) => {
-//   res.setHeader('Content-type', 'text/plain');
-//   return res.send(`
-//   User-agent: *
-//   Disallow: 
+router.get("/robots.txt", (req, res) => {
+  res.setHeader('Content-type', 'text/plain');
+  return res.send(`
+  User-agent: *
+  Disallow: 
   
-//   `)
-// })
+  `)
+})
 
 module.exports = router;

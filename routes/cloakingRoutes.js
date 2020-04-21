@@ -162,13 +162,9 @@ router.get('/cloaking/googlebot-404', function (req, res, next) {
 });
 
 router.get('/cloaking/google-only-cloak', async function (req, res, next) {
-  const reverseDNSLookup = require('reverse-dns-lookup');
-
-  let googlebot = /googlebot/i.test(req.headers['user-agent']);
-
-  if (googlebot) { // It says it's Googlebot
-    const ip = request.headers['x-forwarded-for'];
-    googlebot = await reverseDNSLookup(ip, 'google.com', 'googlebot.com'); // Okay, it's Googlebot
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  verify(ip, (error, isGoogle) => {
+    if (isGoogle) {
     res.render('index', {
       title: 'Googlebot cloaking - Seotest.dev',
       metaDescription: "",
@@ -197,5 +193,6 @@ router.get('/cloaking/google-only-cloak', async function (req, res, next) {
     res.sendStatus(401)
   }
 
+});
 });
 module.exports = router;
