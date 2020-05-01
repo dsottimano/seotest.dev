@@ -79,7 +79,7 @@ router.get('/cloaking/googlebot-301', function (req, res, next) {
   verify(ip, (error, isGoogle) => {
     if (isGoogle) {
       return res.redirect(301, 'https://seotest.dev')
-    }
+    } else{
     res.render('index', {
       title: 'Googlebot gets redirected via 301 to Homepage - Seotest.dev',
       metaDescription: "",
@@ -102,7 +102,9 @@ router.get('/cloaking/googlebot-301', function (req, res, next) {
       googleIndex: 'https://' + req.get('host') + req.originalUrl,
       ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       headers: req.headers
+    
     });
+  }
   });
 });
 
@@ -203,5 +205,39 @@ router.get('/cloaking/google-only-cloak', async function (req, res, next) {
     }
 
   });
+});
+
+router.get('/cloaking/google-accept-language-redirect', async function (req, res, next) {
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  const language = req.acceptsLanguages();
+  console.log(language)
+  if (language.includes("en") || language.includes("EN") ) return res.redirect(301, 'https://seotest.dev')
+      res.render('index', {
+        title: 'Does Google obey accept-language EN - Seotest.dev',
+        metaDescription: "",
+        responseHeaders: JSON.stringify(req.headers),
+        canonical_1_name: "",
+        canonical_1_value: "",
+        canonical_2_name: "",
+        canonical_2_value: "",
+        robots_1_name: "",
+        robots_1_value: "",
+        robots_2_name: "",
+        robots_2_value: "",
+        pageSubHeading: "Cloaking Tests",
+        pageTopHeading: "Google accept language test",
+        testName: "About this test",
+        bodyDescription: `
+      <p>If Googlebot requests the page with accept language as English (en) they will be redirected to the homepage</p>
+      
+      `,
+        googleIndex: 'https://' + req.get('host') + req.originalUrl,
+        ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+        headers: req.headers
+      })
+
+  
+
+ 
 });
 module.exports = router;
