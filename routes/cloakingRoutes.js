@@ -30,6 +30,8 @@ router.get('/cloaking', (req, res) => {
     <h4>Cloaking content tests</h4>
     <ul>
     <li><a href="/cloaking/google-only-cloak">Only Google can see the page - Google cloaking</a></li>
+    <li><a href="/cloaking/google-accept-language-redirect">Does Google follow the accept-language header for English?</a></li>
+    
     </ul>
     `,
 
