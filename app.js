@@ -95,6 +95,7 @@ app.use((req, res, next) => {
 app.use(mainRoutes);
 app.use(indexingRoutes);
 app.use(cloakingRoutes);
+app.use(hiddenRoutes);
 
 
 
