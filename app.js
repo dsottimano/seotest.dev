@@ -6,6 +6,8 @@ const compression = require('compression');
 var mainRoutes = require('./routes/mainRoutes');
 var indexingRoutes = require('./routes/indexingRoutes');
 var cloakingRoutes = require('./routes/cloakingRoutes');
+var hiddenRoutes = require('./routes/hiddenRoutes');
+var httpcodeRoutes = require('routes/http');
 let helmet = require('helmet');
 const verify = require('googlebot-verify');
 var app = express();
@@ -96,6 +98,7 @@ app.use(mainRoutes);
 app.use(indexingRoutes);
 app.use(cloakingRoutes);
 app.use(hiddenRoutes);
+app.use(httpcodeRoutes);
 
 
 
