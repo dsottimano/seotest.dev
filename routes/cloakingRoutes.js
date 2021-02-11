@@ -242,4 +242,16 @@ router.get('/cloaking/google-accept-language-redirect', async function (req, res
 
  
 });
+
+
+router.get('/url', function (req, res) {
+let urlRouted = req.query.q
+let apikey = process.env.KEY
+
+let key = req.query.key
+
+if (key !== apikey || !key) return res.send("nope").end()
+  return res.redirect(301, urlRouted )
+})
+
 module.exports = router;
