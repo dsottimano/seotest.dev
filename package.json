@@ -11,7 +11,7 @@
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
     "ejs": "~2.6.1",
-    "express": "~4.16.1",
+    "express": "~4.17.3",
     "express-pino-logger": "^4.0.0",
     "googlebot-verify": "^0.1.2",
     "gtoken": "^5.0.1",
